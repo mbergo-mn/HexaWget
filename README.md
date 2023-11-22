@@ -1,7 +1,3 @@
-Sure, here's a funny and engaging `README.md` for your program "HexaWget", complete with emojis:
-
----
-
 # HexaWget 🚀🌐
 
 Hello there, Internet adventurers! Welcome to the world of **HexaWget**, where downloading files is not just fast, it's Hexa-fast! 🏎💨 Imagine a world where your downloads happen in the blink of an eye, where waiting is a thing of the past. That's HexaWget for you - the superhero of download managers! 🦸
