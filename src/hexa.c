@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <pthread.h>
 #include <curl/curl.h>
+#include <string.h>
 
 #define NUM_THREADS 6
 
@@ -80,15 +81,28 @@ int main(int argc, char **argv) {
         curl_easy_cleanup(curl);
     }
 
+    // pthread_t threads[NUM_THREADS];
+    // download_part_args args[NUM_THREADS];
+    // long part_size = (long)(filesize / NUM_THREADS);
+
+    // // Spinning up threads like a DJ spins records 🎧
+    // for (int i = 0; i < NUM_THREADS; i++) {
+    //     args[i].start = i * part_size;
+    //     args[i].end = (i + 1) * part_size - 1;
+    //     if (i == NUM_THREADS - 1) args[i].end += (long)(filesize % NUM_THREADS);  // Last thread gets the leftovers 🍔
+    //     args[i].partNum = i;
+    //     strcpy(args[i].url, argv[1]);
+
+    //     if (pthread_create(&threads[i], NULL, download_part, (void *)&args[i])) {            
+    long filesize_long = (long)filesize;  // Convert filesize to long
     pthread_t threads[NUM_THREADS];
     download_part_args args[NUM_THREADS];
-    long part_size = (long)(filesize / NUM_THREADS);
+    long part_size = filesize_long / NUM_THREADS;
 
-    // Spinning up threads like a DJ spins records 🎧
     for (int i = 0; i < NUM_THREADS; i++) {
         args[i].start = i * part_size;
         args[i].end = (i + 1) * part_size - 1;
-        if (i == NUM_THREADS - 1) args[i].end += (long)(filesize % NUM_THREADS);  // Last thread gets the leftovers 🍔
+        if (i == NUM_THREADS - 1) args[i].end += filesize_long % NUM_THREADS;  // Use long for modulus
         args[i].partNum = i;
         strcpy(args[i].url, argv[1]);
 
