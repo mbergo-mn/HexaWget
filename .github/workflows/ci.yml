@@ -1,0 +1,9 @@
+steps:
+  - uses: actions/checkout@v3
+  - uses: testspace-com/setup-testspace@v1
+    with:
+      domain: ${{github.repository_owner}}
+      token: ${{ secrets.TESTSPACE_TOKEN }} # optional, only required for private repos
+  ..
+  - name: Publish Results to Testspace
+    run: testspace "path/to/*.xml"
